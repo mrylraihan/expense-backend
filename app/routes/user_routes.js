@@ -44,6 +44,7 @@ router.post('/sign-up', (req, res, next) => {
     .then(hash => {
       // return necessary params to create a user
       return {
+        username: req.body.credentials.username,
         email: req.body.credentials.email,
         hashedPassword: hash
       }
@@ -136,6 +137,13 @@ router.delete('/sign-out', requireToken, (req, res, next) => {
   // save the token and respond with 204
   req.user.save()
     .then(() => res.sendStatus(204))
+    .catch(next)
+})
+
+// get all users secrete Get request
+router.get('/users', (req, res, next) => {
+  User.find()
+    .then(users => res.json({users}))
     .catch(next)
 })
 
