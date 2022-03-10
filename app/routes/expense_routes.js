@@ -62,7 +62,7 @@ router.post('/expenses', requireToken, (req, res, next) => {
   // set owner of new task to be current user
   req.body.expense.owner = req.user.id
 
-  Expense.create(req.body.task)
+  Expense.create(req.body.expense)
   // respond to succesful `create` with status 201 and JSON of new "task"
     .then(expense => {
       res.status(201).json({ expense: expense.toObject() })
